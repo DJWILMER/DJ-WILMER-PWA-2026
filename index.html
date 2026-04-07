@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DJ WILMER</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d47a1">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    height:100vh;
+    background: url('https://i.ibb.co/WWMytJQR/fondo-radio-jpg-CHICA-BONITA.jpg') no-repeat center center/cover;
+    color:white;
+    overflow:hidden;
+}
+
+/* FONDO OSCURO */
+.overlay{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+}
+
+/* TARJETA CENTRAL */
+.card{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    max-width:350px;
+    background: rgba(13,71,161,0.8);
+    border-radius:25px;
+    padding:20px;
+    backdrop-filter: blur(15px);
+    text-align:center;
+}
+
+/* LOGO */
+.logo{
+    width:100%;
+    border-radius:15px;
+}
+
+/* BOTONES LATERALES */
+.side{
+    position:absolute;
+    right:15px;
+    top:200px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.side button{
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:50%;
+    background:#0d47a1;
+    color:white;
+    font-size:18px;
+}
+
+/* LIVE */
+.live-bar{
+    margin-top:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+}
+
+.line{
+    width:40px;
+    height:2px;
+    background:white;
+}
+
+.live{
+    background:#1e88e5;
+    padding:5px 15px;
+    border-radius:20px;
+    font-size:12px;
+}
+
+/* TEXTO */
+h2{
+    margin-top:10px;
+}
+
+p{
+    font-size:14px;
+    opacity:0.8;
+}
+
+/* REDES */
+.social{
+    margin-top:15px;
+}
+
+.social a{
+    text-decoration:none;
+}
+
+.social i{
+    margin:8px;
+    font-size:20px;
+    background:rgba(255,255,255,0.1);
+    padding:10px;
+    border-radius:50%;
+    color:white;
+}
+
+/* PLAYER */
+.player{
+    margin-top:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.track{
+    text-align:left;
+    font-size:14px;
+}
+
+.play-btn{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    border:none;
+    background:#fff;
+    color:#e91e63;
+    font-size:20px;
+}
+
+/* FOOTER */
+.footer{
+    position:absolute;
+    bottom:20px;
+    width:100%;
+    text-align:center;
+    font-size:14px;
+    opacity:0.8;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<!-- BOTONES LATERALES -->
+<div class="side">
+    <button><i class="fas fa-bars"></i></button>
+    <button onclick="window.open('https://www.youtube.com/@WilmerDelgadoCieza', '_blank')"><i class="fab fa-youtube"></i></button>
+    <button onclick="window.open('https://www.tiktok.com/@djchochobarwilmer', '_blank')"><i class="fab fa-tiktok"></i></button>
+</div>
+
+<!-- TARJETA -->
+<div class="card">
+
+    <img src="https://i.ibb.co/mhw9LGh/DJ-WILMER-PNG-ORIGINAL.png" class="logo">
+
+    <div class="live-bar">
+        <div class="line"></div>
+        <div class="live">EN DIRECTO</div>
+        <div class="line"></div>
+    </div>
+
+    <h2>DJ WILMER</h2>
+    <p>SONANDO EN VIVO</p>
+
+    <!-- REDES -->
+    <div class="social">
+        <a href="https://www.youtube.com/@WilmerDelgadoCieza" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/wilmerdelgadocieza/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/51980634177" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@djchochobarwilmer" target="_blank"><i class="fab fa-tiktok"></i></a>
+        <a href="https://wilmerdelgadocieza.blogspot.com/" target="_blank"><i class="fas fa-globe"></i></a>
+    </div>
+
+    <!-- PLAYER -->
+    <div class="player">
+        <div class="track">
+            <strong>SONANDO TODA TU MUSICA </strong><br>
+           FIESTA TROPICAL 
+        </div>
+
+        <button class="play-btn" onclick="toggleRadio()" id="btn">
+            <i class="fas fa-play"></i>
+        </button>
+    </div>
+
+</div>
+
+<div class="footer">
+    © DJ WILMER 980634177
+</div>
+
+<audio id="radio" src="https://radios03.audiostreaming.ar:10438/stream"></audio>
+
+<script>
+let radio = document.getElementById("radio");
+let btn = document.getElementById("btn");
+let playing = false;
+
+function toggleRadio(){
+    if(!playing){
+        radio.play();
+        btn.innerHTML = '<i class="fas fa-stop"></i>';
+    }else{
+        radio.pause();
+        btn.innerHTML = '<i class="fas fa-play"></i>';
+    }
+    playing = !playing;
+}
+
+// PWA
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
+</script>
+
+</body>
+</html>
